@@ -64,8 +64,8 @@ The Saaspose.SDK for PHP allows you to save the output files at your specified l
 
 ###Prerequisites
 
---PHP version
---Extensions (php_curl & php_json)
+PHP version 5.3.8
+Extensions (php_curl & php_json)
 
 ###Help Material
 
