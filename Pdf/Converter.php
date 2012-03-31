@@ -30,7 +30,7 @@ class PDFConverter
 
 			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
 			
-			Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "." . $imageFormat);
+			Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "_" . $pageNumber . "." . $imageFormat);
 		}
 		catch (Exception $e)
 		{
@@ -56,8 +56,8 @@ class PDFConverter
 			$signedURI = Utils::Sign($strURI);
 
 			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
-
-			Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "." . $imageFormat);
+ 
+			Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "_" . $pageNumber . "." . $imageFormat);
 		}
 		catch (Exception $e)
 		{
