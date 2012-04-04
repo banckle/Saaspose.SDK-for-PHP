@@ -33,7 +33,20 @@ class CellConverter
 
 			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
 			
-			Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "." . $this->saveformat);
+			$string = (string)$responseStream;
+			$pos = strpos($string, "Unable to read beyond the end of the stream");
+			$pos2 = strpos($string, "Index was out of range");
+			$pos3 = strpos($string, "Unknown file format.");
+			$pos4 = strpos($string, "Cannot read that as a ZipFile");
+			
+			if ($pos === false && $pos2 == false && $pos3 == false && $pos4 == false) 
+			{
+				Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "." . $this->saveformat);
+				return "";
+			} 
+			else 
+				return "Unknown file format.";
+		
 		}
 		catch (Exception $e)
 		{

@@ -34,8 +34,18 @@ class WordConverter
                 $signedURI = Utils::Sign($strURI);
 
 				$responseStream = Utils::processCommand($signedURI, "GET", "", "");
-
-				Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "." . $this->saveformat);
+				
+				$string = (string)$responseStream;
+				$pos = strpos($string, "Unknown file format.");
+				
+				if ($pos === false) 
+				{
+					Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "." . $this->saveformat);
+					return "";
+				} 
+				else 
+					return "Unknown file format.";
+				
             }
             catch (Exception $e)
             {
