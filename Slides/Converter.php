@@ -91,18 +91,15 @@ class SlideConverter
 
 			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
 
-			$string = (string)$responseStream;
-			$pos = strpos($string, "Not a Microsoft PowerPoint 2007 presentation");
-			$pos2 = strpos($string, "Index was outside the bounds of the array");
-			$pos3 = strpos($string, "Unknown file format.");
-			
-			if ($pos === false && $pos2 == false && $pos3 == false) 
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") 
 			{
 				Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "." . $this->saveformat);
 				return "";
 			} 
 			else 
-				return "Unknown file format.";
+				return $v_output;
 		}
 		catch (Exception $e)
 		{

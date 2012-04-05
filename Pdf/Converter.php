@@ -30,19 +30,15 @@ class PDFConverter
 
 			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
 		
-			$string = (string)$responseStream;
-			$pos = strpos($string, "An attempt was made to move the position before the beginning of the stream");
-			$pos2 = strpos($string, "Index was out of range");
-			$pos3 = strpos($string, "Unknown file format.");
-			$pos4 = strpos($string, "Cannot read that as a ZipFile");
-			
-			if ($pos === false && $pos2 == false && $pos3 == false && $pos4 == false) 
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") 
 			{
 				Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "_" . $pageNumber . "." . $imageFormat);
 				return "";
 			} 
 			else 
-				return "Unknown file format.";
+				return $v_output;
 		}
 		catch (Exception $e)
 		{
@@ -69,20 +65,16 @@ class PDFConverter
 
 			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
 
-			$string = (string)$responseStream;
-			$pos = strpos($string, "An attempt was made to move the position before the beginning of the stream");
-			$pos2 = strpos($string, "Index was out of range");
-			$pos3 = strpos($string, "Unknown file format.");
-			$pos4 = strpos($string, "Cannot read that as a ZipFile");
-			
-			if ($pos === false && $pos2 == false && $pos3 == false && $pos4 == false) 
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") 
 			{
 				Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "_" . $pageNumber . "." . $imageFormat);
 				return "";
 			} 
 			else 
-				return "Unknown file format.";
-				
+				return $v_output;
+
 		}
 		catch (Exception $e)
 		{
@@ -108,19 +100,15 @@ class PDFConverter
 
 			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
 			
-			$string = (string)$responseStream;
-			$pos = strpos($string, "An attempt was made to move the position before the beginning of the stream");
-			$pos2 = strpos($string, "Index was out of range");
-			$pos3 = strpos($string, "Unknown file format.");
-			$pos4 = strpos($string, "Cannot read that as a ZipFile");
-			
-			if ($pos === false && $pos2 == false && $pos3 == false && $pos4 == false) 
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") 
 			{
 				Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "." . $this->saveformat);
 				return "";
 			} 
 			else 
-				return "Unknown file format.";
+				return $v_output;
 		}
 		catch (Exception $e)
 		{

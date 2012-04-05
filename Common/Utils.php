@@ -202,5 +202,29 @@ class Utils {
 		return $file_name;
 	}
 
+	public static function ValidateOutput($result)
+	{
+		$string = (string)$result;
+		
+		$validate = array("Unknown file format.", "Unable to read beyond the end of the stream", 
+		"Index was out of range", "Cannot read that as a ZipFile", "Not a Microsoft PowerPoint 2007 presentation",
+		"Index was outside the bounds of the array", "An attempt was made to move the position before the beginning of the stream",
+		);
+		
+		$invalid = 0;
+		foreach ($validate as $key => $value) {
+			$pos = strpos($string, $value);
+			 
+			if ($pos === 1)
+			{
+				$invalid = 1;
+			}
+		}
+		 
+		if($invalid == 1)
+		   return $string;
+		else
+		   return "";
+	}
 }
 ?>

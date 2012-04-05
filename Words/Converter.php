@@ -35,16 +35,15 @@ class WordConverter
 
 				$responseStream = Utils::processCommand($signedURI, "GET", "", "");
 				
-				$string = (string)$responseStream;
-				$pos = strpos($string, "Unknown file format.");
-				
-				if ($pos === false) 
+				$v_output = Utils::ValidateOutput($responseStream);
+	 
+				if ($v_output === "") 
 				{
 					Utils::saveFile($responseStream, SaasposeApp::$OutPutLocation . Utils::getFileName($this->FileName). "." . $this->saveformat);
 					return "";
 				} 
 				else 
-					return "Unknown file format.";
+					return $v_output;
 				
             }
             catch (Exception $e)
