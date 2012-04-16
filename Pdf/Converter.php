@@ -1,7 +1,7 @@
 <?php
-/// <summary>
-/// converts pages or document into different formats
-/// </summary>
+/*
+* converts pages or document into different formats
+*/
 class PDFConverter
 {
 	public $FileName = "";
@@ -11,11 +11,14 @@ class PDFConverter
         $this->FileName = $fileName;
     }
 
-    /// <summary>
-    /// convert a particular page to image
-    /// </summary>
-    /// <param name="outputPath"></param>
-    /// <param name="pageNumber"></param>
+	/*
+    * convert a particular page to image with specified size
+	* @param string $pageNumber
+	* @param string $imageFormat
+	* @param string $width
+	* @param string $height
+	*/
+	
     public function ConvertToImagebySize($pageNumber, $imageFormat, $width, $height)
     {
        try
@@ -46,11 +49,11 @@ class PDFConverter
 		}
     } 
 
-	/// <summary>
-	/// convert a particular page to image with default size
-	/// </summary>
-	/// <param name="outputPath"></param>
-	/// <param name="pageNumber"></param>
+	/*
+    * convert a particular page to image with default size
+	* @param string $pageNumber
+	* @param string $imageFormat
+	*/
 	public function ConvertToImage($pageNumber, $imageFormat)
 	{ 
 		try
@@ -82,10 +85,9 @@ class PDFConverter
 		}  
     } 
 
-	/// <summary>
-	/// convert a document to SaveFormat
-	/// </summary>
-	/// <param name="output">the location of the output file</param>
+	/*
+    * convert a document to SaveFormat
+	*/
 	public function Convert()
 	{
 		try

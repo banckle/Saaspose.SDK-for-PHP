@@ -4,13 +4,14 @@
 /// </summary>
 class SaasposeApp
 {
-	/// <summary>
-	/// Represents AppSID for the app.
-	/// </summary>
+	
+	/*
+    * Represents AppSID for the app.
+	*/
 	public static $AppSID  = "";
-	/// <summary>
-	/// Represnts the AppKey for the app.
-	/// </summary>
+	/*
+    * Represents AppKey for the app.
+	*/
 	public static $AppKey = "";
 	
 	public static $OutPutLocation = "C:\\TempFiles\\";

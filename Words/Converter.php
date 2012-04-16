@@ -1,7 +1,7 @@
 <?php
-/// <summary>
-/// Class to convert file to different formats
-/// </summary>     
+/*
+* converts pages or document into different formats
+*/   
 class WordConverter
 {
 	public $FileName = "";
@@ -15,10 +15,9 @@ class WordConverter
 		$this->saveformat =  "Doc";
 	}
 	
-	    /// <summary>
-        /// convert a document to SaveFormat
-        /// </summary>
-        /// <param name="output">the location of the output file</param>
+	    /*
+        * convert a document to SaveFormat
+		*/
         public function Convert()
         {
             try

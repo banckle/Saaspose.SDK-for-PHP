@@ -1,7 +1,7 @@
 <?php
-/// <summary>
-/// converts pages or document into different formats
-/// </summary>
+/*
+* converts pages or document into different formats
+*/
 class SlideConverter
 {
 	public $FileName = "";
@@ -15,12 +15,12 @@ class SlideConverter
 		$this->saveformat =  "PPT";
 	}
 
-	/// <summary>
-	/// Saves a particular slide into various formats with specified width and height
-	/// </summary>
-	/// <param name="outputPath"></param>
-	/// <param name="slideNumber"></param>
-	/// <param name="imageFormat"></param>
+	/*
+    * Saves a particular slide into various formats with specified width and height
+	* @param string $slideNumber
+	* @param string $imageFormat
+	*/
+	 
 	public function ConvertToImage($slideNumber, $imageFormat)
 	{
 		try
@@ -42,15 +42,15 @@ class SlideConverter
 			throw new Exception($e->getMessage());
 		}  	
 	}  
-
-	/// <summary>
-	/// Saves a particular slide into various formats with specified width and height
-	/// </summary>
-	/// <param name="outputPath"></param>
-	/// <param name="slideNumber"></param>
-	/// <param name="imageFormat"></param>
-	/// <param name="width"></param>
-	/// <param name="height"></param>
+	
+	/*
+    * Saves a particular slide into various formats with specified width and height
+	* @param string $slideNumber
+	* @param string $imageFormat
+	* @param string $width
+	* @param string $height
+	*/
+	
 	public function ConvertToImagebySize($slideNumber, $imageFormat, $width, $height)
 	{
 		try
@@ -73,10 +73,9 @@ class SlideConverter
 		}  	
 	}
 
-	/// <summary>
-	/// convert a document to SaveFormat
-	/// </summary>
-	/// <param name="output">the location of the output file</param>
+	/*
+    * convert a document to SaveFormat
+	*/
 	public function Convert()
 	{
 		try
