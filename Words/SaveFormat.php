@@ -20,4 +20,11 @@
 		"swf" => "swf",
 		"tiff" => "tiff"
 	);
+	
+	$DrawingObjectsRenderFormat = array(
+		"jpeg" => "jpeg",
+		"tiff" => "tiff",
+		"png" => "png",
+		"bmp" => "bmp"
+		);
 ?> 
