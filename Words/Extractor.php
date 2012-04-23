@@ -33,9 +33,7 @@ class WordExtractor
 			$json = json_decode($responseStream);
 			
 			return $json->TextItems->List;
-			//echo $json->TextItems->List[0]->Text;
-			//return count($json->Images->List);  
-				
+	
 		}
 		catch (Exception $e)
 		{
