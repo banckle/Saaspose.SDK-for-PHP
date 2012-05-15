@@ -25,6 +25,11 @@ This repository contains Saaspose.SDK for PHP source code. This SDK allows you t
 </tr>
 
 <tr>
+<td>Barcode</td>
+<td>This section provides the features to generate and read barcodes using Saaspose.Barcode.</td>
+</tr>
+
+<tr>
 <td>Pdf</td>
 <td>This section provides the features to manipulate PDF files using Saaspose.Pdf.</td>
 </tr>
@@ -42,11 +47,6 @@ This repository contains Saaspose.SDK for PHP source code. This SDK allows you t
 <tr>
 <td>Slides</td>
 <td>This section provides the features to manipulate Powerpoint files using Saaspose.Slides.</td>
-</tr>
-
-<tr>
-<td>BarCode</td>
-<td>This section provides the features to manipulate bar codes using Saaspose.BarCode.</td>
 </tr>
 
 

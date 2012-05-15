@@ -120,7 +120,8 @@ class Utils {
 
     
 	public static function Sign($UrlToSign) {
-        // parse the url
+        $UrlToSign = str_replace(" ", "%20", $UrlToSign);
+		// parse the url
         $url = parse_url($UrlToSign);
       
         if (isset($url['query']) == "")

@@ -14,4 +14,6 @@
 	require_once('Slides/Converter.php');
 	require_once('Slides/SaveFormat.php');
 	require_once('Slides/Extractor.php');
+	require_once('Barcode/BarCodeBuilder.php');
+	require_once('Barcode/BarCodeReader.php');
 ?>
