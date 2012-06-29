@@ -5,10 +5,13 @@
 class PDFConverter
 {
 	public $FileName = "";
+	public $saveformat = "";
 	
     public function PDFConverter($fileName)
     {
         $this->FileName = $fileName;
+		
+		$this->saveformat =  "Pdf";
     }
 
 	/*
