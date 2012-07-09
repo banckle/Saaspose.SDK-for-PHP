@@ -162,5 +162,287 @@ class Document
 			throw new Exception($e->getMessage());
 		}
     }
+
+	/*
+	* Gets the FormField count of the specified PDF document
+	*/
+    public function GetFormFieldCount()
+    {
+		//build URI
+		$strURI = Product::$BaseProductUri . "/pdf/" . $this->FileName . "/fields";
+ 
+		//sign URI
+		$signedURI = Utils::Sign($strURI);
+ 
+		//get response stream
+		$responseStream = Utils::ProcessCommand($signedURI, "GET", "");		
+			
+		$json = json_decode($responseStream);
+			 
+		 return count($json->Fields->List);  
+    }
+	
+	/*
+	* Gets the list of FormFields from the specified PDF document
+	*/
+    public function GetFormFields()
+    {
+		//build URI
+		$strURI = Product::$BaseProductUri . "/pdf/" . $this->FileName . "/fields";
+ 
+		//sign URI
+		$signedURI = Utils::Sign($strURI);
+ 
+		//get response stream
+		$responseStream = Utils::ProcessCommand($signedURI, "GET", "");		
+			
+		$json = json_decode($responseStream);
+			 
+		 return $json->Fields->List;  
+    }
+	
+	/*
+	* Gets a particular form field
+	* $fieldName
+	*/
+    public function GetFormField($fieldName)
+    {
+		//build URI
+		$strURI = Product::$BaseProductUri . "/pdf/" . $this->FileName . "/fields/" . $fieldName;
+ 
+		//sign URI
+		$signedURI = Utils::Sign($strURI);
+ 
+		//get response stream
+		$responseStream = Utils::ProcessCommand($signedURI, "GET", "");		
+			
+		$json = json_decode($responseStream);
+			 
+		 return $json->Field;  
+    }
+
+	/*
+    * Creates an Empty Pdf document
+	* @param string $pdfFileName (name of the PDF file to create)
+	*/
+	public function CreateEmptyPdf($pdfFileName) {
+       try {
+			//check whether files are set or not
+			if ($pdfFileName == "")
+				throw new Exception("PDF file name not specified");
+				
+			//build URI to create PDF
+			$strURI = Product::$BaseProductUri . "/pdf/" . $pdfFileName;
+			
+			//sign URI
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "PUT", "", "");
+
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") {
+				//Save PDF file on server
+				$folder = new Folder();
+				$outputStream = $folder->GetFile($pdfFileName);
+				$outputPath = SaasposeApp::$OutPutLocation . $pdfFileName;
+				Utils::saveFile($outputStream, $outputPath);
+				return "";
+			} 
+			else 
+				return $v_output;
+		}
+		catch (Exception $e) {
+			throw new Exception($e->getMessage());
+		}
+    }
+	
+	/*
+    * Adds new page to opened Pdf document
+	*/
+	public function AddNewPage() {
+       try {
+			//check whether files are set or not
+			if ($this->FileName == "")
+				throw new Exception("PDF file name not specified");
+				
+			//build URI to add page
+			$strURI = Product::$BaseProductUri . "/pdf/" . $this->FileName . "/pages";
+			
+			//sign URI
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "PUT", "", "");
+
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") {
+				//Save PDF file on server
+				$folder = new Folder();
+				$outputStream = $folder->GetFile($this->FileName);
+				$outputPath = SaasposeApp::$OutPutLocation . $this->FileName;
+				Utils::saveFile($outputStream, $outputPath);
+				return "";
+			} 
+			else 
+				return $v_output;
+		}
+		catch (Exception $e) {
+			throw new Exception($e->getMessage());
+		}
+    }
+	
+	/*
+    * Deletes selected page from Pdf document
+	* $pageNumber
+	*/
+	public function DeletePage($pageNumber) {
+       try {
+			//check whether files are set or not
+			if ($this->FileName == "")
+				throw new Exception("PDF file name not specified");
+				
+			//build URI to delete page
+			$strURI = Product::$BaseProductUri . "/pdf/" . $this->FileName . "/pages/" . $pageNumber;
+			
+			//sign URI
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "DELETE", "", "");
+
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") {
+				//Save PDF file on server
+				$folder = new Folder();
+				$outputStream = $folder->GetFile($this->FileName);
+				$outputPath = SaasposeApp::$OutPutLocation . $this->FileName;
+				Utils::saveFile($outputStream, $outputPath);
+				return "";
+			} 
+			else 
+				return $v_output;
+		}
+		catch (Exception $e) {
+			throw new Exception($e->getMessage());
+		}
+    }
+	
+	/*
+    * Moves selected page in Pdf document to new location
+	* $pageNumber
+	* $newLocation
+	*/
+	public function MovePage($pageNumber, $newLocation) {
+       try {
+			//check whether files are set or not
+			if ($this->FileName == "")
+				throw new Exception("PDF file name not specified");
+				
+			//build URI to move page
+			$strURI = Product::$BaseProductUri . "/pdf/" . $this->FileName . "/pages/" . $pageNumber . 
+						"/movePage?newIndex=" . $newLocation;
+			
+			//sign URI
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "POST", "", "");
+
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") {
+				//Save PDF file on server
+				$folder = new Folder();
+				$outputStream = $folder->GetFile($this->FileName);
+				$outputPath = SaasposeApp::$OutPutLocation . $this->FileName;
+				Utils::saveFile($outputStream, $outputPath);
+				return "";
+			} 
+			else 
+				return $v_output;
+		}
+		catch (Exception $e) {
+			throw new Exception($e->getMessage());
+		}
+    }
+	
+	/*
+    * Replaces Image in PDF File using Local Image Stream
+	* $pageNumber
+	* $imageIndex
+	* $imageStream
+	*/
+	public function ReplaceImageUsingStream($pageNumber, $imageIndex, $imageStream) {
+       try {
+			//check whether files are set or not
+			if ($this->FileName == "")
+				throw new Exception("PDF file name not specified");
+				
+			//build URI to replace image
+			$strURI = Product::$BaseProductUri . "/pdf/" . $this->FileName . "/pages/" . $pageNumber . 
+						"/images/" . $imageIndex;
+			
+			//sign URI
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "POST", "", $imageStream);
+
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") {
+				//Save PDF file on server
+				$folder = new Folder();
+				$outputStream = $folder->GetFile($this->FileName);
+				$outputPath = SaasposeApp::$OutPutLocation . $this->FileName;
+				Utils::saveFile($outputStream, $outputPath);
+				return "";
+			} 
+			else 
+				return $v_output;
+		}
+		catch (Exception $e) {
+			throw new Exception($e->getMessage());
+		}
+    }
+	
+	/*
+    * Replaces Image in PDF File using Local Image Stream
+	* $pageNumber
+	* $imageIndex
+	* $fileName
+	*/
+	public function ReplaceImageUsingFile($pageNumber, $imageIndex, $fileName) {
+       try {
+			//check whether files are set or not
+			if ($this->FileName == "")
+				throw new Exception("PDF file name not specified");
+				
+			//build URI to replace image
+			$strURI = Product::$BaseProductUri . "/pdf/" . $this->FileName . "/pages/" . $pageNumber . 
+						"/images/" . $imageIndex . "?imageFile=" . $fileName;
+			
+			//sign URI
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "POST", "", "");
+
+			$v_output = Utils::ValidateOutput($responseStream);
+ 
+			if ($v_output === "") {
+				//Save PDF file on server
+				$folder = new Folder();
+				$outputStream = $folder->GetFile($this->FileName);
+				$outputPath = SaasposeApp::$OutPutLocation . $this->FileName;
+				Utils::saveFile($outputStream, $outputPath);
+				return "";
+			} 
+			else 
+				return $v_output;
+		}
+		catch (Exception $e) {
+			throw new Exception($e->getMessage());
+		}
+    }
+	
 }
 ?> 

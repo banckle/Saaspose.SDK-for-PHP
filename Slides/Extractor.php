@@ -15,7 +15,6 @@ class SlideExtractor
 
 	/*
     * Gets total number of images in a presentation
-	* @param $pageNumber
 	*/
 	
 	public function GetImageCount()
@@ -109,6 +108,155 @@ class SlideExtractor
 			}
  
 			return $shapes;
+		}
+		catch (Exception $e)
+		{
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	/*
+    * Get color scheme from the specified slide
+	* $slideNumber
+	*/ 
+	public function GetColorScheme($slideNumber)
+	{
+		try
+		{  
+			//check whether file is set or not
+			if ($this->FileName == "")
+				throw new Exception("No file name specified");
+			
+			//Build URI to get color scheme
+			$strURI = Product::$BaseProductUri . "/slides/" . $this->FileName . "/slides/" . $slideNumber . "/theme/colorScheme";
+			 
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
+			
+			$json = json_decode($responseStream);
+	
+			return $json->ColorScheme;
+		}
+		catch (Exception $e)
+		{
+			throw new Exception($e->getMessage());
+		}  	
+	}
+	
+	/*
+    * Get font scheme from the specified slide
+	* $slideNumber
+	*/ 
+	public function GetFontScheme($slideNumber)
+	{
+		try
+		{  
+			//check whether file is set or not
+			if ($this->FileName == "")
+				throw new Exception("No file name specified");
+			
+			//Build URI to get font scheme
+			$strURI = Product::$BaseProductUri . "/slides/" . $this->FileName . "/slides/" . $slideNumber . "/theme/fontScheme";
+			 
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
+			
+			$json = json_decode($responseStream);
+	
+			return $json->FontScheme;
+		}
+		catch (Exception $e)
+		{
+			throw new Exception($e->getMessage());
+		}  	
+	}
+	
+	/*
+    * Get format scheme from the specified slide
+	* $slideNumber
+	*/ 
+	public function GetFormatScheme($slideNumber)
+	{
+		try
+		{  
+			//check whether file is set or not
+			if ($this->FileName == "")
+				throw new Exception("No file name specified");
+			
+			//Build URI to get format scheme
+			$strURI = Product::$BaseProductUri . "/slides/" . $this->FileName . "/slides/" . $slideNumber . "/theme/formatScheme";
+			 
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
+			
+			$json = json_decode($responseStream);
+	
+			return $json->FormatScheme;
+		}
+		catch (Exception $e)
+		{
+			throw new Exception($e->getMessage());
+		}  	
+	}
+	
+	/*
+    * Gets placeholder count from a particular slide
+	* $slideNumber
+	*/
+	
+	public function GetPlaceholderCount($slideNumber)
+	{
+		try
+		{
+			//check whether file is set or not
+			if ($this->FileName == "")
+				throw new Exception("No file name specified");
+				   
+			$strURI = Product::$BaseProductUri . "/slides/" . $this->FileName . "/slides/" . $slideNumber . "/placeholders";
+			 
+			//Build URI to get placeholders
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
+
+			$json = json_decode($responseStream);
+			
+			return count($json->Placeholders->PlaceholderLinks);  
+				
+		}
+		catch (Exception $e)
+		{
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	/*
+    * Gets placeholder count from a particular slide
+	* $slideNumber
+	* $placeholderIndex
+	*/
+	public function GetPlaceholder($slideNumber, $placeholderIndex)
+	{
+		try
+		{
+			//check whether file is set or not
+			if ($this->FileName == "")
+				throw new Exception("No file name specified");
+				   
+			$strURI = Product::$BaseProductUri . "/slides/" . $this->FileName . "/slides/" . $slideNumber . "/placeholders/" . $placeholderIndex;
+			 
+			//Build URI to get placeholders
+			$signedURI = Utils::Sign($strURI);
+
+			$responseStream = Utils::processCommand($signedURI, "GET", "", "");
+
+			$json = json_decode($responseStream);
+			
+			return $json->Placeholder;  
+				
 		}
 		catch (Exception $e)
 		{
